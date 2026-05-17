@@ -1,6 +1,6 @@
--- This file allow to write SQL commands that will be emitted in test and dev.
--- The commands are commented as their support depends of the database
--- insert into myentity (id, field) values(1, 'field-1');
--- insert into myentity (id, field) values(2, 'field-2');
--- insert into myentity (id, field) values(3, 'field-3');
--- alter sequence myentity_seq restart with 4;
+-- Seed admin user
+-- Password: admin123 (SHA-256 hashed)
+INSERT INTO app_user (id, email, full_name, role, password_hash, created_by, created_on, updated_on)
+VALUES (1, 'admin@aurelian.com', 'Admin Aurelian', 'admin', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'system', CURRENT_DATE, CURRENT_DATE);
+
+ALTER SEQUENCE app_user_seq RESTART WITH 2;

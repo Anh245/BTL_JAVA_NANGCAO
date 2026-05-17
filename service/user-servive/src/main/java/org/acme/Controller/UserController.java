@@ -9,7 +9,7 @@ import org.acme.Service.UserService;
 
 import java.util.List;
 
-@Path("/User")
+@Path("/api/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserController {

@@ -3,75 +3,36 @@ package org.acme.Entity;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "app_user")
 public class User extends PanacheEntity {
 
-   @Column(nullable = false, unique = true)
-    private String email;
+    @Column(nullable = false, unique = true)
+    public String email;
 
-   @Column(nullable = false)
-    private String full_name;
+    @Column(name = "full_name", nullable = false)
+    public String fullName;
 
-   @Column(nullable = false)
-    private String role;
+    @Column(nullable = false)
+    public String role;
 
-   private String created_by;
+    @Column(name = "password_hash", nullable = false)
+    public String passwordHash;
 
-   @Column(nullable = false)
-   private LocalDate created_on;
+    @Column(name = "created_by")
+    public String createdBy;
 
-   @Column(nullable = false)
-   private LocalDate updated_on;
+    @Column(name = "created_on", nullable = false)
+    public LocalDate createdOn;
 
-    public String getEmail() {
-        return email;
-    }
+    @Column(name = "updated_on", nullable = false)
+    public LocalDate updatedOn;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFull_name() {
-        return full_name;
-    }
-
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getCreated_by() {
-        return created_by;
-    }
-
-    public void setCreated_by(String created_by) {
-        this.created_by = created_by;
-    }
-
-    public LocalDate getCreated_on() {
-        return created_on;
-    }
-
-    public void setCreated_on(LocalDate created_on) {
-        this.created_on = created_on;
-    }
-
-    public LocalDate getUpdated_on() {
-        return updated_on;
-    }
-
-    public void setUpdated_on(LocalDate updated_on) {
-        this.updated_on = updated_on;
+    public static User findByEmail(String email) {
+        return find("email", email).firstResult();
     }
 }
