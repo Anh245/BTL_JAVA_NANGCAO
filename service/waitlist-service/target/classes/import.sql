@@ -1,0 +1,1 @@
+-- Waitlist seed data (empty for now)

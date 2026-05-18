@@ -1,0 +1,4 @@
+org\acme\Service\WaitlistService.class
+org\acme\Repository\WaitlistRepository.class
+org\acme\Controller\WaitlistController.class
+org\acme\Entity\Waitlist.class

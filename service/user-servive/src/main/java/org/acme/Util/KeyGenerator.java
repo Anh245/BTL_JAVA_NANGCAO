@@ -30,8 +30,17 @@ public class KeyGenerator {
             URL privUrl = Thread.currentThread().getContextClassLoader().getResource("privateKey.pem");
             URL pubUrl = Thread.currentThread().getContextClassLoader().getResource("publicKey.pem");
 
-            if (privUrl == null || pubUrl == null) {
-                LOG.info("JWT keys not found on classpath, generating...");
+            // Check if key files are missing OR empty (only contain PEM header/footer without actual key data)
+            boolean keysEmpty = false;
+            if (privUrl != null) {
+                String privContent = new String(privUrl.openStream().readAllBytes());
+                // An empty PEM file has < 100 bytes (just header + footer), a real key has > 1000 bytes
+                keysEmpty = privContent.trim().replace("-----BEGIN PRIVATE KEY-----", "")
+                        .replace("-----END PRIVATE KEY-----", "").trim().isEmpty();
+            }
+
+            if (privUrl == null || pubUrl == null || keysEmpty) {
+                LOG.info("JWT keys not found or empty on classpath, generating...");
 
                 KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
                 kpg.initialize(2048);
